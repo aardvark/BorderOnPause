@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+    <name>Border on pause</name>
+    <author>aardvark</author>
+    <supportedVersions>
+        <li>1.0</li>
+    </supportedVersions>
+    <description>0.0.1
+        This mod adds visible border at the edge of the screen when game is paused
+    </description>
+</ModMetaData>
