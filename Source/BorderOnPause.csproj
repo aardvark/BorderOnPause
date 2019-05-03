@@ -50,7 +50,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Mod.cs" />
-        <Compile Include="Patch\Patch.cs" />
+        <Compile Include="Patch\Verse_TickManager_TogglePaused.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
