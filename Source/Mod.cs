@@ -7,7 +7,7 @@ namespace BorderOnPause
     internal static class Mod
     {
         public const string Id = "BorderOnPause";
-        public const string Name = "Border On Pause";
+        public const string Name = "Border on pause";
         public const string Version = "0.0.1";
 
         static Mod()
