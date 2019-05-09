@@ -58,6 +58,9 @@
       <Content Include="..\About\About.xml">
         <Link>About\About.xml</Link>
       </Content>
+      <Content Include="..\README.md">
+        <Link>Properties\README.md</Link>
+      </Content>
       <Content Include="README.md" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
