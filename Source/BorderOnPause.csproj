@@ -49,8 +49,9 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Core.cs" />
         <Compile Include="Mod.cs" />
-        <Compile Include="Patch\Verse_TickManager_TogglePaused.cs" />
+        <Compile Include="Patch\RimWorld_MapInterface_MapInterfaceOnGUI_BeforeMainTabs.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>

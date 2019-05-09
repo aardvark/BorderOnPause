@@ -6,4 +6,4 @@ using BorderOnPause;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyProduct("RimWorld Mod")]
 [assembly: AssemblyVersion(Mod.Version)]
-[assembly: AssemblyFileVersion("1.0.*")]
+[assembly: AssemblyFileVersion(Mod.Version)]
