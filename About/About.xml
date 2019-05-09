@@ -6,6 +6,6 @@
         <li>1.0</li>
     </supportedVersions>
     <description>
-        This mod adds visible border at the edge of the screen when game is paused
+        Adds red colored border when pause is active.
     </description>
 </ModMetaData>
