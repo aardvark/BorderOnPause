@@ -8,7 +8,7 @@ namespace BorderOnPause
     {
         public const string Id = "BorderOnPause";
         public const string Name = "More visible pause";
-        public const string Version = "0.0.1";
+        public const string Version = "1.0.1";
 
         static Mod()
         {

@@ -14,8 +14,8 @@
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugSymbols>true</DebugSymbols>
-        <DebugType>full</DebugType>
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>none</DebugType>
         <Optimize>false</Optimize>
         <OutputPath>..\Assemblies\</OutputPath>
         <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -24,7 +24,7 @@
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugType>pdbonly</DebugType>
+        <DebugType>none</DebugType>
         <Optimize>true</Optimize>
         <OutputPath>..\Assemblies\</OutputPath>
         <DefineConstants>TRACE</DefineConstants>
@@ -35,23 +35,23 @@
         <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, PublicKeyToken=null">
           <HintPath>..\Assemblies\0Harmony.dll</HintPath>
         </Reference>
-        <Reference Include="Assembly-CSharp, Version=1.0.7036.34321, Culture=neutral, PublicKeyToken=null">
-            <HintPath>..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
-            <Private>False</Private>
+        <Reference Include="Assembly-CSharp, Version=1.0.7087.21809, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
+          <Private>False</Private>
         </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
         <Reference Include="System.Xml" />
         <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>..\..\..\RimWorldWin64_Data\Managed\UnityEngine.dll</HintPath>
-            <Private>False</Private>
+          <HintPath>..\..\..\RimWorldWin64_Data\Managed\UnityEngine.dll</HintPath>
+          <Private>False</Private>
         </Reference>
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Core.cs" />
         <Compile Include="Mod.cs" />
-        <Compile Include="Patch\RimWorld_MapInterface_MapInterfaceOnGUI_BeforeMainTabs.cs" />
+        <Compile Include="Patch\RimWorld_MapInterface_MapInterfaceOnGUI.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
