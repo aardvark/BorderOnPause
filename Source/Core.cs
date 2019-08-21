@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 
@@ -8,10 +7,7 @@ namespace BorderOnPause
     [StaticConstructorOnStartup]
     internal static class Core
     {
-        /* Gradient curve steps for smothing edges*/
-        private static readonly List<float> Steps = new List<float> {0.25f, 0.20f, 0.15f, 0.10f, 0.05f};
-
-        enum GradientType
+        private enum GradientType
         {
             Left,
             Right,
