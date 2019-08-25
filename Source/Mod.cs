@@ -1,4 +1,5 @@
-﻿using Harmony;
+﻿using System.Reflection;
+using Harmony;
 using Verse;
 
 namespace BorderOnPause
