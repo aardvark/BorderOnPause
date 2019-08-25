@@ -6,6 +6,6 @@
         <li>1.0</li>
     </supportedVersions>
     <description>
-        Adds red colored border when pause is active.
+        Adds colored border when pause is active. Border color, size and transparency can be configured via "Mod Settings" menu.
     </description>
 </ModMetaData>
