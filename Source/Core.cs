@@ -45,7 +45,7 @@ namespace BorderOnPause
             listingStandard.Label("Gradient final opacity (transparent -> solid)");
             Settings.EndAlpha = listingStandard.Slider(Settings.EndAlpha, 0f, 1.0f);
 
-            listingStandard.Label("Gradient color. (Red, Green, Blue)");
+            listingStandard.Label("Border color. (Red, Green, Blue)");
             Settings.Color_R = listingStandard.Slider(Settings.Color_R, 0f, 1.0f);
             Settings.Color_G = listingStandard.Slider(Settings.Color_G, 0f, 1.0f);
             Settings.Color_B = listingStandard.Slider(Settings.Color_B, 0f, 1.0f);
@@ -54,8 +54,8 @@ namespace BorderOnPause
             if (buttonText)
             {
                 Settings.BorderSize = 25f;
-                Settings.StartAlpha = 0.5f;
-                Settings.EndAlpha = 0.05f;
+                Settings.StartAlpha = 0.25f;
+                Settings.EndAlpha = 0.25f;
 
                 Settings.Color_R = 1.0f;
                 Settings.Color_G = 0.0f;
@@ -68,7 +68,7 @@ namespace BorderOnPause
 
         public override string SettingsCategory()
         {
-            return "BorderOnPause";
+            return Mod.Name;
         }
     }
 }

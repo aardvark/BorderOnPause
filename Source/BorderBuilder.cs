@@ -10,7 +10,13 @@ namespace BorderOnPause
         private enum GradientType
         {
             Left,
+            TopLeft,
+            BottomLeft,
+
             Right,
+            TopRight,
+            BottomRight,
+
             Top,
             Bottom
         }
@@ -25,6 +31,46 @@ namespace BorderOnPause
 
             var from = new Color(r, g, b, start);
             var to = new Color(r, g, b, stop);
+
+            Texture2D TopLeftGradient()
+            {
+                var texture = new Texture2D(2, 2) {name = "GradientTopLeftTex-" + from};
+                texture.SetPixel(0, 0, from);
+                texture.SetPixel(0, 1, from);
+                texture.SetPixel(1, 1, from);
+                texture.SetPixel(1, 0, to);
+                return texture;
+            }
+
+            Texture2D TopRightGradient()
+            {
+                var texture = new Texture2D(2, 2) {name = "GradientTopRightTex-" + from};
+                texture.SetPixel(0, 0, to);
+                texture.SetPixel(0, 1, from);
+                texture.SetPixel(1, 1, from);
+                texture.SetPixel(1, 0, from);
+                return texture;
+            }
+
+            Texture2D BottomLeftGradient()
+            {
+                var texture = new Texture2D(2, 2) {name = "GradientBottomLeftTex-" + from};
+                texture.SetPixel(0, 0, from);
+                texture.SetPixel(0, 1, from);
+                texture.SetPixel(1, 0, from);
+                texture.SetPixel(1, 1, to);
+                return texture;
+            }
+
+            Texture2D BottomRightGradient()
+            {
+                var texture = new Texture2D(2, 2) {name = "GradientBottomRightTex-" + from};
+                texture.SetPixel(0, 0, from);
+                texture.SetPixel(0, 1, to);
+                texture.SetPixel(1, 1, from);
+                texture.SetPixel(1, 0, from);
+                return texture;
+            }
 
             Texture2D LeftGradient()
             {
@@ -64,8 +110,20 @@ namespace BorderOnPause
                 case GradientType.Left:
                     texture2D = LeftGradient();
                     break;
+                case GradientType.TopLeft:
+                    texture2D = TopLeftGradient();
+                    break;
+                case GradientType.BottomLeft:
+                    texture2D = BottomLeftGradient();
+                    break;
                 case GradientType.Right:
                     texture2D = RightGradient();
+                    break;
+                case GradientType.TopRight:
+                    texture2D = TopRightGradient();
+                    break;
+                case GradientType.BottomRight:
+                    texture2D = BottomRightGradient();
                     break;
                 case GradientType.Top:
                     texture2D = TopGradient();
@@ -87,26 +145,43 @@ namespace BorderOnPause
         public List<Pair<Rect, Texture2D>> CreateBorders(float borderSize, float start, float stop, float r, float g,
             float b)
         {
+            var topLeftGradient = GradientTexture(start, stop, GradientType.TopLeft, r, g, b);
             var leftGradient = GradientTexture(start, stop, GradientType.Left, r, g, b);
+            var topRightGradient = GradientTexture(start, stop, GradientType.TopRight, r, g, b);
             var rightGradient = GradientTexture(start, stop, GradientType.Right, r, g, b);
             var topGradient = GradientTexture(start, stop, GradientType.Top, r, g, b);
+            var bottomLeft = GradientTexture(start, stop, GradientType.BottomLeft, r, g, b);
+            var bottomRight = GradientTexture(start, stop, GradientType.BottomRight, r, g, b);
             var bottomGradient = GradientTexture(start, stop, GradientType.Bottom, r, g, b);
 
 
-            var leftBorder = new Rect(0, 0, borderSize, UI.screenHeight - BottomMenuSize);
-            var topBorder = new Rect(0, 0, UI.screenWidth, borderSize);
+            var leftTopCorner = new Rect(0, 0, borderSize, borderSize);
+            var leftBorder = new Rect(0, borderSize, borderSize, UI.screenHeight - BottomMenuSize - borderSize - borderSize);
 
-            var rightBorder = new Rect(UI.screenWidth - borderSize, 0, borderSize,
-                UI.screenHeight - BottomMenuSize);
+            var topBorder = new Rect(borderSize, 0, UI.screenWidth - borderSize - borderSize, borderSize);
+            var rightTopCorner = new Rect(UI.screenWidth - borderSize, topBorder.y, borderSize, borderSize);
 
-            var bottomBorder = new Rect(0, UI.screenHeight - borderSize - BottomMenuSize,
-                UI.screenWidth, borderSize);
+            var rightBorder = new Rect(UI.screenWidth - borderSize, borderSize, borderSize,
+                UI.screenHeight - BottomMenuSize - borderSize - borderSize);
+
+
+            var bottomBorder = new Rect(borderSize, UI.screenHeight - borderSize - BottomMenuSize,
+                UI.screenWidth - borderSize - borderSize, borderSize);
+
+            var rightBottomCorner = new Rect(rightBorder.x, bottomBorder.y, borderSize, borderSize);
+
+            var leftBottomCorner = new Rect(0, bottomBorder.y, borderSize, borderSize);
 
             var pairs = new List<Pair<Rect, Texture2D>>();
             pairs.Add(new Pair<Rect, Texture2D>(leftBorder, leftGradient));
             pairs.Add(new Pair<Rect, Texture2D>(rightBorder, rightGradient));
             pairs.Add(new Pair<Rect, Texture2D>(topBorder, topGradient));
             pairs.Add(new Pair<Rect, Texture2D>(bottomBorder, bottomGradient));
+
+            pairs.Add(new Pair<Rect, Texture2D>(leftTopCorner, topLeftGradient));
+            pairs.Add(new Pair<Rect, Texture2D>(rightTopCorner, topRightGradient));
+            pairs.Add(new Pair<Rect, Texture2D>(rightBottomCorner, bottomRight));
+            pairs.Add(new Pair<Rect, Texture2D>(leftBottomCorner, bottomLeft));
 
             return pairs;
         }
