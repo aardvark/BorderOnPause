@@ -1,5 +1,5 @@
 using System;
-using System.Globalization;
+using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 
@@ -9,22 +9,66 @@ namespace BorderOnPause
     {
         private static readonly BorderBuilder Builder = new BorderBuilder();
         private static readonly Rect AllUi = new Rect(0, 0, UI.screenWidth, UI.screenHeight);
-        private Settings settings;
+        private Settings _settings;
+
+        private static float _prevBorderSize;
+        private static float _prevStartAlpha;
+        private static float _prevEndAlpha;
+        private static float _prevColorR;
+        private static float _prevColorG;
+        private static float _prevColorB;
+
+        private static List<Pair<Rect, Texture2D>> _borders;
+
+        private static bool AlmostMatch(float a, float b)
+        {
+            return Math.Abs(a - b) < 0.000001;
+        }
 
         public static void InitDraw()
         {
             if (Find.TickManager.CurTimeSpeed != TimeSpeed.Paused) return;
+
+            if (AlmostMatch(Settings.BorderSize, _prevBorderSize) &&
+                AlmostMatch(Settings.StartAlpha, _prevStartAlpha) &&
+                AlmostMatch(Settings.EndAlpha, _prevEndAlpha) &&
+                AlmostMatch(Settings.Color_G, _prevColorG) &&
+                AlmostMatch(Settings.Color_R, _prevColorR) &&
+                AlmostMatch(Settings.Color_B, _prevColorB)
+            )
+            {
+                GUI.BeginGroup(AllUi);
+                _borders.ForEach(pair => Widgets.DrawAtlas(pair.First, pair.Second));
+                GUI.EndGroup();
+                return;
+            }
+
             GUI.BeginGroup(AllUi);
-            var borders = Builder.CreateBorders(Settings.BorderSize, Settings.StartAlpha, Settings.EndAlpha,
-                Settings.Color_R, Settings.Color_G, Settings.Color_B
+
+            var borderSize = Settings.BorderSize;
+            var startAlpha = Settings.StartAlpha;
+            var endAlpha = Settings.EndAlpha;
+            var colorR = Settings.Color_R;
+            var colorG = Settings.Color_G;
+            var colorB = Settings.Color_B;
+            _borders = Builder.CreateBorders(borderSize, startAlpha, endAlpha,
+                colorR, colorG, colorB
             );
-            borders.ForEach(pair => Widgets.DrawAtlas(pair.First, pair.Second));
+            _prevBorderSize = borderSize;
+            _prevStartAlpha = startAlpha;
+            _prevEndAlpha = endAlpha;
+            _prevColorG = colorG;
+            _prevColorR = colorR;
+            _prevColorB = colorB;
+
+            GUI.BeginGroup(AllUi);
+            _borders.ForEach(pair => Widgets.DrawAtlas(pair.First, pair.Second));
             GUI.EndGroup();
         }
 
         public Core(ModContentPack content) : base(content)
         {
-            this.settings = GetSettings<Settings>();
+            this._settings = GetSettings<Settings>();
         }
 
         private static int _borderSize = 25;
@@ -37,7 +81,7 @@ namespace BorderOnPause
             var borderSizeBuffer = ((int) Settings.BorderSize).ToString();
             listingStandard.Label("Set border size in pixels");
             listingStandard.IntEntry(ref _borderSize, ref borderSizeBuffer);
-            Settings.BorderSize = Core._borderSize;
+            Settings.BorderSize = _borderSize;
 
             listingStandard.Label("Gradient starting opacity (transparent -> solid)");
             Settings.StartAlpha = listingStandard.Slider(Settings.StartAlpha, 0f, 1.0f);

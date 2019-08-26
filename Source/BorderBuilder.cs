@@ -172,16 +172,17 @@ namespace BorderOnPause
 
             var leftBottomCorner = new Rect(0, bottomBorder.y, borderSize, borderSize);
 
-            var pairs = new List<Pair<Rect, Texture2D>>();
-            pairs.Add(new Pair<Rect, Texture2D>(leftBorder, leftGradient));
-            pairs.Add(new Pair<Rect, Texture2D>(rightBorder, rightGradient));
-            pairs.Add(new Pair<Rect, Texture2D>(topBorder, topGradient));
-            pairs.Add(new Pair<Rect, Texture2D>(bottomBorder, bottomGradient));
-
-            pairs.Add(new Pair<Rect, Texture2D>(leftTopCorner, topLeftGradient));
-            pairs.Add(new Pair<Rect, Texture2D>(rightTopCorner, topRightGradient));
-            pairs.Add(new Pair<Rect, Texture2D>(rightBottomCorner, bottomRight));
-            pairs.Add(new Pair<Rect, Texture2D>(leftBottomCorner, bottomLeft));
+            var pairs = new List<Pair<Rect, Texture2D>>
+            {
+                new Pair<Rect, Texture2D>(leftBorder, leftGradient),
+                new Pair<Rect, Texture2D>(rightBorder, rightGradient),
+                new Pair<Rect, Texture2D>(topBorder, topGradient),
+                new Pair<Rect, Texture2D>(bottomBorder, bottomGradient),
+                new Pair<Rect, Texture2D>(leftTopCorner, topLeftGradient),
+                new Pair<Rect, Texture2D>(rightTopCorner, topRightGradient),
+                new Pair<Rect, Texture2D>(rightBottomCorner, bottomRight),
+                new Pair<Rect, Texture2D>(leftBottomCorner, bottomLeft)
+            };
 
             return pairs;
         }
