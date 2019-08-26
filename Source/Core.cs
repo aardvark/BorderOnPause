@@ -8,7 +8,6 @@ namespace BorderOnPause
     public class Core : Verse.Mod
     {
         private static readonly BorderBuilder Builder = new BorderBuilder();
-        private static readonly Rect AllUi = new Rect(0, 0, UI.screenWidth, UI.screenHeight);
         private Settings _settings;
 
         private static float _prevBorderSize;
@@ -17,6 +16,9 @@ namespace BorderOnPause
         private static float _prevColorR;
         private static float _prevColorG;
         private static float _prevColorB;
+
+        private static float _prevUIWidth;
+        private static float _prevUIHeight;
 
         private static List<Pair<Rect, Texture2D>> _borders;
 
@@ -29,21 +31,23 @@ namespace BorderOnPause
         {
             if (Find.TickManager.CurTimeSpeed != TimeSpeed.Paused) return;
 
+            Rect allUi;
             if (AlmostMatch(Settings.BorderSize, _prevBorderSize) &&
                 AlmostMatch(Settings.StartAlpha, _prevStartAlpha) &&
                 AlmostMatch(Settings.EndAlpha, _prevEndAlpha) &&
                 AlmostMatch(Settings.Color_G, _prevColorG) &&
                 AlmostMatch(Settings.Color_R, _prevColorR) &&
-                AlmostMatch(Settings.Color_B, _prevColorB)
+                AlmostMatch(Settings.Color_B, _prevColorB) &&
+                AlmostMatch(UI.screenHeight, _prevUIHeight) &&
+                AlmostMatch(UI.screenWidth, _prevUIWidth)
             )
             {
-                GUI.BeginGroup(AllUi);
+                allUi = new Rect(0, 0, UI.screenWidth, UI.screenHeight);
+                GUI.BeginGroup(allUi);
                 _borders.ForEach(pair => Widgets.DrawAtlas(pair.First, pair.Second));
                 GUI.EndGroup();
                 return;
             }
-
-            GUI.BeginGroup(AllUi);
 
             var borderSize = Settings.BorderSize;
             var startAlpha = Settings.StartAlpha;
@@ -60,8 +64,11 @@ namespace BorderOnPause
             _prevColorG = colorG;
             _prevColorR = colorR;
             _prevColorB = colorB;
+            _prevUIHeight = UI.screenHeight;
+            _prevUIWidth = UI.screenWidth;
 
-            GUI.BeginGroup(AllUi);
+            allUi = new Rect(0, 0, UI.screenWidth, UI.screenHeight);
+            GUI.BeginGroup(allUi);
             _borders.ForEach(pair => Widgets.DrawAtlas(pair.First, pair.Second));
             GUI.EndGroup();
         }
