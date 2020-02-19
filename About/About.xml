@@ -2,6 +2,7 @@
 <ModMetaData>
     <name>More visible pause</name>
     <author>aardvark</author>
+    <packageId>aardvark.MoreVisiblePause</packageId>
     <supportedVersions>
         <li>1.0</li>
     </supportedVersions>
