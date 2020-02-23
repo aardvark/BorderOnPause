@@ -35,8 +35,9 @@
     <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\Assemblies\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="Assembly-CSharp, Version=1.1.7354.16047, Culture=neutral, PublicKeyToken=null">
-      <HintPath>D:\SteamLibrary\SteamApps\common\RimWorld\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
+    <Reference Include="Assembly-CSharp, Version=1.1.7355.32308, Culture=neutral, PublicKeyToken=null">
+      <Name>RimWorld V1.1.7355.32308</Name>
+      <HintPath>..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -66,19 +67,15 @@
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\About\About.xml">
-      <Link>About\About.xml</Link>
-    </Content>
     <Content Include="..\README.md">
       <Link>Properties\README.md</Link>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-         Other similar extension points exist, see Microsoft.Common.targets.
-    <Target Name="BeforeBuild">
-    </Target>
+         Other similar extension points exist, see Microsoft.Common.targets. -->
+<!--    <Target Name="BeforeBuild">
+    </Target>-->
     <Target Name="AfterBuild">
     </Target>
-    -->
 </Project>

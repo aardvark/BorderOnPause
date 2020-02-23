@@ -5,6 +5,7 @@
     <packageId>aardvark.MoreVisiblePause</packageId>
     <supportedVersions>
         <li>1.0</li>
+        <li>1.1</li>
     </supportedVersions>
     <description>
         Adds colored border when pause is active. Border color, size and transparency can be configured via "Mod Settings" menu.

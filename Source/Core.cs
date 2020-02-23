@@ -17,8 +17,8 @@ namespace BorderOnPause
         private static float _prevColorG;
         private static float _prevColorB;
 
-        private static float _prevUIWidth;
-        private static float _prevUIHeight;
+        private static float _prevUiWidth;
+        private static float _prevUiHeight;
 
         private static List<Pair<Rect, Texture2D>> _borders;
 
@@ -31,43 +31,37 @@ namespace BorderOnPause
         {
             if (Find.TickManager.CurTimeSpeed != TimeSpeed.Paused) return;
 
-            Rect allUi;
             if (AlmostMatch(Settings.BorderSize, _prevBorderSize) &&
                 AlmostMatch(Settings.StartAlpha, _prevStartAlpha) &&
                 AlmostMatch(Settings.EndAlpha, _prevEndAlpha) &&
                 AlmostMatch(Settings.Color_G, _prevColorG) &&
                 AlmostMatch(Settings.Color_R, _prevColorR) &&
                 AlmostMatch(Settings.Color_B, _prevColorB) &&
-                AlmostMatch(UI.screenHeight, _prevUIHeight) &&
-                AlmostMatch(UI.screenWidth, _prevUIWidth)
+                AlmostMatch(UI.screenHeight, _prevUiHeight) &&
+                AlmostMatch(UI.screenWidth, _prevUiWidth)
             )
             {
-                allUi = new Rect(0, 0, UI.screenWidth, UI.screenHeight);
-                GUI.BeginGroup(allUi);
-                _borders.ForEach(pair => Widgets.DrawAtlas(pair.First, pair.Second));
-                GUI.EndGroup();
+                DrawBorders();
                 return;
             }
 
-            var borderSize = Settings.BorderSize;
-            var startAlpha = Settings.StartAlpha;
-            var endAlpha = Settings.EndAlpha;
-            var colorR = Settings.Color_R;
-            var colorG = Settings.Color_G;
-            var colorB = Settings.Color_B;
-            _borders = Builder.CreateBorders(borderSize, startAlpha, endAlpha,
-                colorR, colorG, colorB
-            );
-            _prevBorderSize = borderSize;
-            _prevStartAlpha = startAlpha;
-            _prevEndAlpha = endAlpha;
-            _prevColorG = colorG;
-            _prevColorR = colorR;
-            _prevColorB = colorB;
-            _prevUIHeight = UI.screenHeight;
-            _prevUIWidth = UI.screenWidth;
+            _borders = BorderBuilder.CreateBordersUsingSettings();
+            
+            _prevBorderSize = Settings.BorderSize;
+            _prevStartAlpha = Settings.StartAlpha;
+            _prevEndAlpha = Settings.EndAlpha;
+            _prevColorR = Settings.Color_R;
+            _prevColorG = Settings.Color_G;
+            _prevColorB = Settings.Color_B;
+            _prevUiHeight = UI.screenHeight;
+            _prevUiWidth = UI.screenWidth;
 
-            allUi = new Rect(0, 0, UI.screenWidth, UI.screenHeight);
+            DrawBorders();
+        }
+
+        private static void DrawBorders()
+        {
+            var allUi = new Rect(0, 0, UI.screenWidth, UI.screenHeight);
             GUI.BeginGroup(allUi);
             _borders.ForEach(pair => Widgets.DrawAtlas(pair.First, pair.Second));
             GUI.EndGroup();
@@ -75,14 +69,14 @@ namespace BorderOnPause
 
         public Core(ModContentPack content) : base(content)
         {
-            this._settings = GetSettings<Settings>();
+            _settings = GetSettings<Settings>();
         }
 
         private static int _borderSize = 25;
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
-            Listing_Standard listingStandard = new Listing_Standard();
+            var listingStandard = new Listing_Standard();
             listingStandard.Begin(inRect);
 
             var borderSizeBuffer = ((int) Settings.BorderSize).ToString();
@@ -101,7 +95,7 @@ namespace BorderOnPause
             Settings.Color_G = listingStandard.Slider(Settings.Color_G, 0f, 1.0f);
             Settings.Color_B = listingStandard.Slider(Settings.Color_B, 0f, 1.0f);
 
-            bool buttonText = listingStandard.ButtonText("Reset to default");
+            var buttonText = listingStandard.ButtonText("Reset to default");
             if (buttonText)
             {
                 Settings.BorderSize = 25f;

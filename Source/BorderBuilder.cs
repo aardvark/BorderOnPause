@@ -20,8 +20,11 @@ namespace BorderOnPause
             Top,
             Bottom
         }
-
-        private static Texture2D GradientTexture(float start, float stop, GradientType type, float r, float g, float b)
+        
+        private const float BottomMenuSize = 35f;
+        
+        private static Texture2D GradientTexture(float startingTransparency, float finalTransparency, GradientType type,
+            float r, float g, float b)
         {
             if (!UnityData.IsInMainThread)
             {
@@ -29,107 +32,35 @@ namespace BorderOnPause
                 return null;
             }
 
-            var from = new Color(r, g, b, start);
-            var to = new Color(r, g, b, stop);
-
-            Texture2D TopLeftGradient()
-            {
-                var texture = new Texture2D(2, 2) {name = "GradientTopLeftTex-" + from};
-                texture.SetPixel(0, 0, from);
-                texture.SetPixel(0, 1, from);
-                texture.SetPixel(1, 1, from);
-                texture.SetPixel(1, 0, to);
-                return texture;
-            }
-
-            Texture2D TopRightGradient()
-            {
-                var texture = new Texture2D(2, 2) {name = "GradientTopRightTex-" + from};
-                texture.SetPixel(0, 0, to);
-                texture.SetPixel(0, 1, from);
-                texture.SetPixel(1, 1, from);
-                texture.SetPixel(1, 0, from);
-                return texture;
-            }
-
-            Texture2D BottomLeftGradient()
-            {
-                var texture = new Texture2D(2, 2) {name = "GradientBottomLeftTex-" + from};
-                texture.SetPixel(0, 0, from);
-                texture.SetPixel(0, 1, from);
-                texture.SetPixel(1, 0, from);
-                texture.SetPixel(1, 1, to);
-                return texture;
-            }
-
-            Texture2D BottomRightGradient()
-            {
-                var texture = new Texture2D(2, 2) {name = "GradientBottomRightTex-" + from};
-                texture.SetPixel(0, 0, from);
-                texture.SetPixel(0, 1, to);
-                texture.SetPixel(1, 1, from);
-                texture.SetPixel(1, 0, from);
-                return texture;
-            }
-
-            Texture2D LeftGradient()
-            {
-                var texture = new Texture2D(2, 1) {name = "GradientLTRColorTex-" + from};
-                texture.SetPixel(0, 0, from);
-                texture.SetPixel(1, 0, to);
-                return texture;
-            }
-
-            Texture2D RightGradient()
-            {
-                var texture = new Texture2D(2, 1) {name = "GradientRTLColorTex-" + from};
-                texture.SetPixel(0, 0, to);
-                texture.SetPixel(1, 0, from);
-                return texture;
-            }
-
-            Texture2D TopGradient()
-            {
-                var texture = new Texture2D(1, 2) {name = "GradientTTBColorTex-" + from};
-                texture.SetPixel(0, 0, to);
-                texture.SetPixel(0, 1, from);
-                return texture;
-            }
-
-            Texture2D BottomGradient()
-            {
-                var texture = new Texture2D(1, 2) {name = "GradientBTTColorTex-" + from};
-                texture.SetPixel(0, 0, from);
-                texture.SetPixel(0, 1, to);
-                return texture;
-            }
+            var from = new Color(r, g, b, startingTransparency);
+            var to = new Color(r, g, b, finalTransparency);
 
             Texture2D texture2D;
             switch (type)
             {
                 case GradientType.Left:
-                    texture2D = LeftGradient();
+                    texture2D = LeftGradient(ref from, ref to);
                     break;
                 case GradientType.TopLeft:
-                    texture2D = TopLeftGradient();
+                    texture2D = TopLeftGradient(ref from, ref to);
                     break;
                 case GradientType.BottomLeft:
-                    texture2D = BottomLeftGradient();
+                    texture2D = BottomLeftGradient(ref from, ref to);
                     break;
                 case GradientType.Right:
-                    texture2D = RightGradient();
+                    texture2D = RightGradient(ref from, ref to);
                     break;
                 case GradientType.TopRight:
-                    texture2D = TopRightGradient();
+                    texture2D = TopRightGradient(ref from, ref to);
                     break;
                 case GradientType.BottomRight:
-                    texture2D = BottomRightGradient();
+                    texture2D = BottomRightGradient(ref from, ref to);
                     break;
                 case GradientType.Top:
-                    texture2D = TopGradient();
+                    texture2D = TopGradient(ref from, ref to);
                     break;
                 case GradientType.Bottom:
-                    texture2D = BottomGradient();
+                    texture2D = BottomGradient(ref from, ref to);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -140,9 +71,86 @@ namespace BorderOnPause
             return texture2D;
         }
 
-        private const float BottomMenuSize = 35f;
+        private static Texture2D BottomGradient(ref Color from, ref Color to)
+        {
+            var texture = new Texture2D(1, 2) {name = $"GradientBTTColorTex-{from}"};
+            texture.SetPixel(0, 0, from);
+            texture.SetPixel(0, 1, to);
+            return texture;
+        }
 
-        public List<Pair<Rect, Texture2D>> CreateBorders(float borderSize, float start, float stop, float r, float g,
+        private static Texture2D TopGradient(ref Color from, ref Color to)
+        {
+            var texture = new Texture2D(1, 2) {name = $"GradientTTBColorTex-{from}"};
+            texture.SetPixel(0, 0, to);
+            texture.SetPixel(0, 1, from);
+            return texture;
+        }
+
+        private static Texture2D BottomRightGradient(ref Color from, ref Color to)
+        {
+            var texture = new Texture2D(2, 2) {name = $"GradientBottomRightTex-{from}"};
+            texture.SetPixel(0, 0, from);
+            texture.SetPixel(0, 1, to);
+            texture.SetPixel(1, 1, from);
+            texture.SetPixel(1, 0, from);
+            return texture;
+        }
+
+        private static Texture2D RightGradient(ref Color from, ref Color to)
+        {
+            var texture = new Texture2D(2, 1) {name = $"GradientRTLColorTex-{from}"};
+            texture.SetPixel(0, 0, to);
+            texture.SetPixel(1, 0, from);
+            return texture;
+        }
+
+        private static Texture2D BottomLeftGradient(ref Color from, ref Color to)
+        {
+            var texture = new Texture2D(2, 2) {name = $"GradientBottomLeftTex-{from}"};
+            texture.SetPixel(0, 0, from);
+            texture.SetPixel(0, 1, from);
+            texture.SetPixel(1, 1, to);
+            texture.SetPixel(1, 0, from);
+            return texture;
+        }
+
+        private static Texture2D TopRightGradient(ref Color from, ref Color to)
+        {
+            var texture = new Texture2D(2, 2) {name = $"GradientTopRightTex-{from}"};
+            texture.SetPixel(0, 0, to);
+            texture.SetPixel(0, 1, from);
+            texture.SetPixel(1, 1, from);
+            texture.SetPixel(1, 0, from);
+            return texture;
+        }
+
+        private static Texture2D LeftGradient(ref Color from, ref Color to)
+        {
+            var texture = new Texture2D(2, 1) {name = $"GradientLTRColorTex-{from}"};
+            texture.SetPixel(0, 0, from);
+            texture.SetPixel(1, 0, to);
+            return texture;
+        }
+
+        private static Texture2D TopLeftGradient(ref Color from, ref Color to)
+        {
+            var texture = new Texture2D(2, 2) {name = $"GradientTopLeftTex-{from}"};
+            texture.SetPixel(0, 0, from);
+            texture.SetPixel(0, 1, from);
+            texture.SetPixel(1, 1, from);
+            texture.SetPixel(1, 0, to);
+            return texture;
+        }
+
+
+        public static List<Pair<Rect, Texture2D>> CreateBordersUsingSettings()
+        {
+            return CreateBorders(Settings.BorderSize, Settings.StartAlpha, Settings.EndAlpha,
+                Settings.Color_R, Settings.Color_G, Settings.Color_B);
+        }
+
+        private static List<Pair<Rect, Texture2D>> CreateBorders(float borderSize, float start, float stop, float r, float g,
             float b)
         {
             var topLeftGradient = GradientTexture(start, stop, GradientType.TopLeft, r, g, b);
