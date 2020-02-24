@@ -2,7 +2,7 @@
 
 RimWorld mod.
 
-Adds red colored border when pause is active.
+Adds colored border when pause is active.
 
 [Steam workshop link](https://steamcommunity.com/sharedfiles/filedetails/?id=1736472227)
 
