@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Harmony;
+using HarmonyLib;
 using Verse;
 
 namespace BorderOnPause
@@ -9,11 +9,12 @@ namespace BorderOnPause
     {
         public const string Id = "BorderOnPause";
         public const string Name = "More visible pause";
-        public const string Version = "2.0.0.11";
+        public const string Version = "2.0.0.12";
 
         static Mod()
         {
-            HarmonyInstance.Create(Id).PatchAll();
+            var harmony = new Harmony(Id);
+            harmony.PatchAll();
             Log("Initialized");
         }
 

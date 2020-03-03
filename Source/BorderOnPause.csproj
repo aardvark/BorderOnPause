@@ -32,11 +32,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\Common\Assemblies\0Harmony.dll</HintPath>
+    <Reference Include="0Harmony, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null">
+      <HintPath>packages\Lib.Harmony.2.0.0.8\lib\net48\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Assembly-CSharp, Version=1.1.7357.18179, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="Assembly-CSharp, Version=1.1.7366.37222, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
@@ -44,6 +44,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>D:\SteamLibrary\SteamApps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.dll</HintPath>
@@ -70,6 +71,9 @@
     <Content Include="..\README.md">
       <Link>Properties\README.md</Link>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
