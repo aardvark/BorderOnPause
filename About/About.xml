@@ -8,12 +8,11 @@
         <li>1.1</li>
     </supportedVersions>
     <description>
-        Adds colored border when pause is active. 
-        Border color, size and transparency can be configured via "Mod Settings" menu.
-        
-        This mod is depends on Harmony mod for logic wiring.
-        If you have a problem with mod not loading or throwing errors, check if Harmony dependency is satisfied through
-        "Mods" menu.
+Adds colored border when pause is active. 
+Border color, size and transparency can be configured via "Mod Settings" menu.
+
+This mod is depends on Harmony mod for logic wiring.
+If you have a problem with mod not loading or throwing errors, check if Harmony dependency is satisfied through "Mods" menu.
     </description>
     <modDependencies>
         <li>
