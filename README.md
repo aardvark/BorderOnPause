@@ -6,6 +6,8 @@ Adds colored border when pause is active.
 
 [Steam workshop link](https://steamcommunity.com/sharedfiles/filedetails/?id=1736472227)
 
+For RimWorld version 1.1+ this mod require [Harmony mod](https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077) lib distribution.
+
 ### Implementation details
 
 Uses [Harmony] to patch _RimWorld.MapInterface.MapInterfaceOnGUI_BeforeMainTabs_
