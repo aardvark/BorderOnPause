@@ -65,6 +65,7 @@
     <Compile Include="Mod.cs" />
     <Compile Include="Patch\RimWorld_MapInterface_MapInterfaceOnGUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Release.cs" />
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
