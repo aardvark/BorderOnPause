@@ -21,6 +21,7 @@ namespace BorderOnPause
             // copy all from ../../1.2 excluding harmony stuff
             var excluding = new List<string> {"0Harmony.dll", "0Harmony.xml"};
             DirectoryCopy("../../1.2", Path.Combine(releaseDirectoryPath, "1.2"), true, excluding);
+            DirectoryCopy("../../1.3", Path.Combine(releaseDirectoryPath, "1.3"), true, excluding);
 
             // copy About
             DirectoryCopy("../../About",
