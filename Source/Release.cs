@@ -10,8 +10,15 @@ namespace BorderOnPause
         {
             Console.WriteLine("Creating release bundle for mod.");
             var releaseDirectoryPath = "../../Release";
+
+            if (Directory.Exists(releaseDirectoryPath))
+            {
+                Console.WriteLine("Existing release bundle found. Removing...");
+                Directory.Delete(releaseDirectoryPath, true);
+            }
+
             var releaseDirectoryInfo = Directory.CreateDirectory(releaseDirectoryPath);
-            
+
             // copy assemblies
             // copy all from ../../1.0
             DirectoryCopy("../../1.0", Path.Combine(releaseDirectoryPath, "1.0"), true);
@@ -19,9 +26,12 @@ namespace BorderOnPause
             DirectoryCopy("../../1.1", Path.Combine(releaseDirectoryPath, "1.1"), true);
 
             // copy all from ../../1.2 excluding harmony stuff
-            var excluding = new List<string> {"0Harmony.dll", "0Harmony.xml"};
-            DirectoryCopy("../../1.2", Path.Combine(releaseDirectoryPath, "1.2"), true, excluding);
-            DirectoryCopy("../../1.3", Path.Combine(releaseDirectoryPath, "1.3"), true, excluding);
+            var excluding = new List<string> { "0Harmony.dll", "0Harmony.xml" };
+            var versionsWithoutHarmony = new string[] { "1.2", "1.3", "1.4", "1.5" };
+            foreach (var v in versionsWithoutHarmony)
+            {
+                DirectoryCopy("../../" + v, Path.Combine(releaseDirectoryPath, v), true, excluding);
+            }
 
             // copy About
             DirectoryCopy("../../About",
@@ -32,6 +42,22 @@ namespace BorderOnPause
             File.Copy("../../LoadFolders.xml", "../../Release/LoadFolders.xml");
             // copy LICENSE
             File.Copy("../../LICENSE", "../../Release/LICENSE");
+
+            // update release in local Steam dir
+            var modDirectoryPath = "C:/Program Files (x86)/Steam/steamapps/common/RimWorld/Mods/MoreVisiblePause";
+            if (Directory.Exists(modDirectoryPath))
+            {
+                Console.WriteLine("Found existing mod directory. Cleaning...");
+                Directory.Delete(modDirectoryPath, true);
+            }
+            else
+            {
+                Directory.CreateDirectory(modDirectoryPath);
+            }
+            
+            
+            Console.WriteLine("Copying release to the mod folder");
+            DirectoryCopy(releaseDirectoryPath, modDirectoryPath, true);
         }
 
         private static readonly List<string> Empty = new List<string>();
@@ -71,7 +97,7 @@ namespace BorderOnPause
 
             // If copying subdirectories, copy them and their contents to new location.
             if (!copySubDirs) return;
-            
+
             foreach (var subdir in dirs)
             {
                 var temppath = Path.Combine(destDirName, subdir.Name);

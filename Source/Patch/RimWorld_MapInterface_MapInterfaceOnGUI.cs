@@ -4,7 +4,7 @@ using Verse;
 
 namespace BorderOnPause.Patch
 {
-    [HarmonyPatch(typeof(MapInterface), "MapInterfaceOnGUI_BeforeMainTabs")]
+    [HarmonyPatch(typeof(MapInterface), "MapInterfaceOnGUI_BeforeMainTabs"), StaticConstructorOnStartup]
     internal static class RimWorld_MapInterface_MapInterfaceOnGUI_BeforeMainTabs
     {
         private static void Prefix()

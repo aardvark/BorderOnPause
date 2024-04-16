@@ -5,6 +5,7 @@ using Verse;
 
 namespace BorderOnPause
 {
+    [StaticConstructorOnStartup]
     public class BorderBuilder
     {
         private enum GradientType
@@ -66,6 +67,7 @@ namespace BorderOnPause
             }
 
             texture2D.filterMode = FilterMode.Bilinear;
+            texture2D.wrapMode = TextureWrapMode.Clamp;
             texture2D.Apply();
             return texture2D;
         }
@@ -143,18 +145,18 @@ namespace BorderOnPause
         }
 
 
-        private struct TextureStruct
+        private readonly struct TextureStruct
         {
-            private readonly float _startTransparency;
-            private readonly float _finalTransparency;
+            private readonly float _startAlpha;
+            private readonly float _endAlpha;
             private readonly float _r;
             private readonly float _g;
             private readonly float _b;
 
             public TextureStruct(float start, float final, float r, float g, float b)
             {
-                _startTransparency = start;
-                _finalTransparency = final;
+                _startAlpha = start;
+                _endAlpha = final;
                 _r = r;
                 _g = g;
                 _b = b;
@@ -162,22 +164,21 @@ namespace BorderOnPause
 
             public Color ColorFrom()
             {
-                return new Color(_r, _g, _b, _startTransparency);
+                return new Color(_r, _g, _b, _startAlpha);
             }
 
             public Color ColorTo()
             {
-                return new Color(_r, _g, _b, _finalTransparency);
+                return new Color(_r, _g, _b, _endAlpha);
             }
         }
 
         public static List<Pair<Rect, Texture2D>> CreateBordersUsingSettings()
         {
-            var textureStruct = new TextureStruct(Settings.StartAlpha, Settings.EndAlpha, Settings.Color_R, Settings.Color_G,
-                Settings.Color_B);
-            var bordersUsingSettings = CreateBorders(Settings.BorderSize,
-                textureStruct);
-            return bordersUsingSettings;
+            var textureStruct = new TextureStruct(
+                Settings.StartAlpha, Settings.EndAlpha, Settings.ColorR, Settings.ColorG, Settings.ColorB
+            );
+            return CreateBorders(Settings.BorderSize, textureStruct );
         }
 
         private static List<Pair<Rect, Texture2D>> CreateBorders(float borderSize, TextureStruct textureStruct)
@@ -212,14 +213,14 @@ namespace BorderOnPause
 
             var pairs = new List<Pair<Rect, Texture2D>>
             {
-                new Pair<Rect, Texture2D>(leftBorder, leftGradient),
-                new Pair<Rect, Texture2D>(rightBorder, rightGradient),
-                new Pair<Rect, Texture2D>(topBorder, topGradient),
-                new Pair<Rect, Texture2D>(bottomBorder, bottomGradient),
-                new Pair<Rect, Texture2D>(leftTopCorner, topLeftGradient),
-                new Pair<Rect, Texture2D>(rightTopCorner, topRightGradient),
-                new Pair<Rect, Texture2D>(rightBottomCorner, bottomRight),
-                new Pair<Rect, Texture2D>(leftBottomCorner, bottomLeft)
+                new(leftBorder, leftGradient),
+                new(rightBorder, rightGradient),
+                new(topBorder, topGradient),
+                new(bottomBorder, bottomGradient),
+                new(leftTopCorner, topLeftGradient),
+                new(rightTopCorner, topRightGradient),
+                new(rightBottomCorner, bottomRight),
+                new(leftBottomCorner, bottomLeft)
             };
 
             return pairs;
