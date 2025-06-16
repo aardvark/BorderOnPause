@@ -39,6 +39,12 @@ namespace BorderOnPause
             DirectoryCopy("../../About",
                 Path.Combine(releaseDirectoryPath, "About"),
                 true);
+            
+            // copy Languages translation to the 1.5
+            DirectoryCopy("../../Languages",
+                Path.Combine(releaseDirectoryPath, "Common", "Languages"),
+                true
+                );
 
             File.Copy("../../LoadFolders.xml", "../../Release/LoadFolders.xml");
             File.Copy("../../LICENSE", "../../Release/LICENSE");

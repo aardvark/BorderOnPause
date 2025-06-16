@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+    <BOP_SetBorderSizeInPixels>Set border size in pixels</BOP_SetBorderSizeInPixels>
+    <BOP_GradientStartingOpacity><![CDATA[Gradient starting opacity (transparent -> solid)]]></BOP_GradientStartingOpacity>
+    <BOP_GradientFinalOpacity><![CDATA[Gradient final opacity (transparent -> solid)]]></BOP_GradientFinalOpacity>
+    <BOP_BorderColorRGB>Border color. (Red, Green, Blue)</BOP_BorderColorRGB>
+    <BOP_ResetToDefault>Reset to default</BOP_ResetToDefault>
+</LanguageData>

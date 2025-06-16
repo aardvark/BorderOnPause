@@ -171,22 +171,27 @@ namespace BorderOnPause
             listingStandard.Begin(inRect);
 
             var borderSizeBuffer = ((int)Settings.BorderSize).ToString();
-            listingStandard.Label("Set border size in pixels");
+            //EN: "Set border size in pixels"
+            listingStandard.Label("BOP_SetBorderSizeInPixels".Translate());
             listingStandard.IntEntry(ref _borderSize, ref borderSizeBuffer);
             Settings.BorderSize = _borderSize;
-
-            listingStandard.Label("Gradient starting opacity (transparent -> solid)");
+            
+            //EN: "Gradient starting opacity (transparent -> solid)"
+            listingStandard.Label("BOP_GradientStartingOpacity".Translate());
             Settings.StartAlpha = listingStandard.Slider(Settings.StartAlpha, 0f, 1.0f);
-
-            listingStandard.Label("Gradient final opacity (transparent -> solid)");
+            
+            //EN: "Gradient final opacity (transparent -> solid)"
+            listingStandard.Label("BOP_GradientFinalOpacity".Translate());
             Settings.EndAlpha = listingStandard.Slider(Settings.EndAlpha, 0f, 1.0f);
 
-            listingStandard.Label("Border color. (Red, Green, Blue)");
+            //EN:"Border color. (Red, Green, Blue)"
+            listingStandard.Label("BOP_BorderColorRGB".Translate());
             Settings.ColorR = listingStandard.Slider(Settings.ColorR, 0f, 1.0f);
             Settings.ColorG = listingStandard.Slider(Settings.ColorG, 0f, 1.0f);
             Settings.ColorB = listingStandard.Slider(Settings.ColorB, 0f, 1.0f);
 
-            var buttonText = listingStandard.ButtonText("Reset to default");
+            //EN: "Reset to default"
+            var buttonText = listingStandard.ButtonText("BOP_ResetToDefault".Translate());
             if (buttonText)
             {
                 Settings.BorderSize = 25f;
