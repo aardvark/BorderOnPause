@@ -25,7 +25,7 @@ namespace BorderOnPause
 
             // copy all from ../../1.2 excluding harmony stuff
             var excluding = new List<string> { "0Harmony.dll", "0Harmony.xml" };
-            var versionsWithoutHarmony = new string[] { "1.2", "1.3", "1.4", "1.5" };
+            var versionsWithoutHarmony = new string[] { "1.2", "1.3", "1.4", "1.5", "1.6" };
             foreach (var v in versionsWithoutHarmony)
             {
                 Directory.CreateDirectory(releaseDirectoryPath +"/" + v + "/Assemblies");
@@ -40,7 +40,7 @@ namespace BorderOnPause
                 Path.Combine(releaseDirectoryPath, "About"),
                 true);
             
-            // copy Languages translation to the 1.5
+            // copy Languages translation to the common
             DirectoryCopy("../../Languages",
                 Path.Combine(releaseDirectoryPath, "Common", "Languages"),
                 true
@@ -48,6 +48,7 @@ namespace BorderOnPause
 
             File.Copy("../../LoadFolders.xml", "../../Release/LoadFolders.xml");
             File.Copy("../../LICENSE", "../../Release/LICENSE");
+            
 
             // update release in local Steam dir
             var modDirectoryPath = "C:/Program Files (x86)/Steam/steamapps/common/RimWorld/Mods/MoreVisiblePause";
