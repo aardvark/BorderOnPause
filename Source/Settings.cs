@@ -12,6 +12,9 @@ namespace BorderOnPause
         public static float ColorR = 1.0f;
         public static float ColorG = 0.0f;
         public static float ColorB = 0.0f;
+
+        public static float OffsetTop = 0.0f;
+        public static float OffsetLeft = 0.0f;
         
         
         public override void ExposeData()
@@ -24,6 +27,7 @@ namespace BorderOnPause
             Scribe_Values.Look(ref ColorG, "color_G");
             Scribe_Values.Look(ref ColorB, "color_B");
             
+            Scribe_Values.Look(ref OffsetTop, "offset_top");
             
             base.ExposeData();
         }

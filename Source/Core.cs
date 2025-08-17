@@ -16,6 +16,7 @@ namespace BorderOnPause
         private static float _prevColorR;
         private static float _prevColorG;
         private static float _prevColorB;
+        private static float _prevOffsetTop;
 
         private static float _prevUiWidth;
         private static float _prevUiHeight;
@@ -42,7 +43,8 @@ namespace BorderOnPause
                 AlmostMatch(Settings.ColorR, _prevColorR) &&
                 AlmostMatch(Settings.ColorB, _prevColorB) &&
                 AlmostMatch(UI.screenHeight, _prevUiHeight) &&
-                AlmostMatch(UI.screenWidth, _prevUiWidth)
+                AlmostMatch(UI.screenWidth, _prevUiWidth) &&
+                AlmostMatch(Settings.OffsetTop, _prevOffsetTop)
                )
             {
                 DrawBorders();
@@ -66,6 +68,7 @@ namespace BorderOnPause
             _prevColorB = Settings.ColorB;
             _prevUiHeight = UI.screenHeight;
             _prevUiWidth = UI.screenWidth;
+            _prevOffsetTop = Settings.OffsetTop;
 
             DrawBorders();
         }
@@ -164,6 +167,7 @@ namespace BorderOnPause
         }
 
         private static int _borderSize = 25;
+        private static int _offsetTop = 0;
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
@@ -190,17 +194,28 @@ namespace BorderOnPause
             Settings.ColorG = listingStandard.Slider(Settings.ColorG, 0f, 1.0f);
             Settings.ColorB = listingStandard.Slider(Settings.ColorB, 0f, 1.0f);
 
+            var _offsetTopBuffer = ((int)Settings.OffsetTop).ToString();
+            //EN: "Offset from top"
+            listingStandard.Label("BOP_ScreenOffset_Top".Translate());
+            listingStandard.IntEntry(ref _offsetTop, ref _offsetTopBuffer);
+            Settings.OffsetTop = _offsetTop;
+
             //EN: "Reset to default"
             var buttonText = listingStandard.ButtonText("BOP_ResetToDefault".Translate());
             if (buttonText)
             {
+                Mod.Log("Defaulting settings");
                 Settings.BorderSize = 25f;
+                _borderSize = 25;
                 Settings.StartAlpha = 0.25f;
                 Settings.EndAlpha = 0.25f;
 
                 Settings.ColorR = 1.0f;
                 Settings.ColorG = 0.0f;
                 Settings.ColorB = 0.0f;
+
+                Settings.OffsetTop = 0.0f;
+                _offsetTop = 0;
             }
 
             listingStandard.End();

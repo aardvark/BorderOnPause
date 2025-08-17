@@ -178,7 +178,12 @@ namespace BorderOnPause
             var textureStruct = new TextureStruct(
                 Settings.StartAlpha, Settings.EndAlpha, Settings.ColorR, Settings.ColorG, Settings.ColorB
             );
-            return CreateBorders(Settings.BorderSize, textureStruct );
+            return CreateBorders(Settings.BorderSize, textureStruct);
+        }
+
+        private static float Offset(float x, float offSet)
+        {
+            return x + offSet;
         }
 
         private static List<Pair<Rect, Texture2D>> CreateBorders(float borderSize, TextureStruct textureStruct)
@@ -192,16 +197,23 @@ namespace BorderOnPause
             var bottomRight = GradientTexture(textureStruct, GradientType.BottomRight);
             var bottomGradient = GradientTexture(textureStruct, GradientType.Bottom);
 
+            /**
+             *   LTC TB RTC
+             *   LB      RB
+             *   LBC BB RBC
+             */
 
-            var leftTopCorner = new Rect(0, 0, borderSize, borderSize);
-            var leftBorder = new Rect(0, borderSize, borderSize,
-                UI.screenHeight - BottomMenuSize - borderSize - borderSize);
+            var x0 = Settings.OffsetLeft;
+            var y0 = Settings.OffsetTop;
+            var leftTopCorner = new Rect(x0, y0, borderSize, borderSize);
+            var leftBorder = new Rect(x0, Offset(y0, borderSize), borderSize,
+                UI.screenHeight - BottomMenuSize - borderSize - borderSize - y0);
 
-            var topBorder = new Rect(borderSize, 0, UI.screenWidth - borderSize - borderSize, borderSize);
+            var topBorder = new Rect(borderSize, y0, UI.screenWidth - borderSize - borderSize, borderSize);
             var rightTopCorner = new Rect(UI.screenWidth - borderSize, topBorder.y, borderSize, borderSize);
 
-            var rightBorder = new Rect(UI.screenWidth - borderSize, borderSize, borderSize,
-                UI.screenHeight - BottomMenuSize - borderSize - borderSize);
+            var rightBorder = new Rect(UI.screenWidth - borderSize, Offset(borderSize, y0), borderSize,
+                UI.screenHeight - BottomMenuSize - borderSize - borderSize - y0);
 
 
             var bottomBorder = new Rect(borderSize, UI.screenHeight - borderSize - BottomMenuSize,
@@ -209,7 +221,7 @@ namespace BorderOnPause
 
             var rightBottomCorner = new Rect(rightBorder.x, bottomBorder.y, borderSize, borderSize);
 
-            var leftBottomCorner = new Rect(0, bottomBorder.y, borderSize, borderSize);
+            var leftBottomCorner = new Rect(x0, bottomBorder.y, borderSize, borderSize);
 
             var pairs = new List<Pair<Rect, Texture2D>>
             {

@@ -5,4 +5,5 @@
     <BOP_GradientFinalOpacity><![CDATA[Gradient final opacity (transparent -> solid)]]></BOP_GradientFinalOpacity>
     <BOP_BorderColorRGB>Border color. (Red, Green, Blue)</BOP_BorderColorRGB>
     <BOP_ResetToDefault>Reset to default</BOP_ResetToDefault>
+    <BOP_ScreenOffset_Top>Offset from top</BOP_ScreenOffset_Top>
 </LanguageData>
