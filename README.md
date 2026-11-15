@@ -1,3 +1,14 @@
+This project source repository is migrated to the codeberg.
+https://codeberg.org/muhanga/BorderOnPause
+
+The sources for the 1.7 release are only available on the codeberg. 
+The new mod builds and releases of 1.7 and later are available on the Steam Workshop. 
+If for some reason you not able to use Steam or Steam Workshop, but require this mod, feel free to contact me here, on Steam or on the codeberg.
+
+------------------------------------------------------------------------------------------
+====================    Stuff below is only for history  =================================
+------------------------------------------------------------------------------------------
+
 ## More visible pause
 
 RimWorld mod.
